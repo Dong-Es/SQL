@@ -82,3 +82,83 @@ Insert Into 캐릭터 Values('C-008','앨리스','기사','힘','U-1006','F-2007
 /*실행결과*/
 Select * 
 From 캐릭터;
+
+/*테이블 생성*/
+/*스킬*/
+Create table 스킬(
+ 스킬ID char(10) not null,
+ 이름 char(10),
+ Primary Key(스킬ID)
+);
+
+/*직업에 따라 앞에 숫자가 다릅니다.*/
+/*데이터 입력*/
+Insert Into 스킬 Values('S-101','슬래쉬');
+Insert Into 스킬 Values('S-102','로아이아스');
+Insert Into 스킬 Values('S-201','매직볼트');
+Insert Into 스킬 Values('S-301','플래쉬');
+Insert Into 스킬 Values('S-401','카르마');
+Insert Into 스킬 Values('S-501','지진');
+Insert Into 스킬 Values('S-601','힐');
+Insert Into 스킬 Values('S-701','디스펠');
+Insert Into 스킬 Values('S-801','건불릿');
+Insert Into 스킬 Values('S-901','카이저');
+Insert Into 스킬 Values('S-902','인핸스');
+
+/*실행결과*/
+Select *
+From 스킬;
+
+/*테이블작성*/
+/*npc*/
+Create table npc(
+ NPCID char(10) not null,
+ 이름 char(20),
+ Primary key(NPCID)
+);
+
+/*데이터 입력*/
+Insert Into npc Values('N-001','에릭');
+Insert Into npc Values('N-002','별빛');
+Insert Into npc Values('N-003','아카');
+Insert Into npc Values('N-004','달빛');
+Insert Into npc Values('N-005','레오나');
+Insert Into npc Values('N-006','카산드라');
+Insert Into npc Values('N-007','리산드라');
+Insert Into npc Values('N-008','메기슨');
+Insert Into npc Values('N-009','밍밍부인');
+Insert Into npc Values('N-010','메덕');
+
+/*실행결과*/
+Select *
+From npc;
+
+/*테이블 생성*/
+/*소환수*/
+Create table 소환수(
+소환수ID char(10) not null,
+이름 char(20),
+종류 char(10),
+스킬 char(20),
+뽑은유저 char(10),
+뽑은AI친구 char(10),
+Primary Key(소환수ID),
+Foreign key(뽑은유저) references 유저(유저ID),
+Foreign key(뽑은AI친구) references AI친구(AI친구ID)
+);
+
+/*데이터 입력*/
+Insert Into 소환수 Values('A-001','두더리','두더지','땅파기','U-1002','F-2003');
+Insert Into 소환수 Values('A-002','참새','참새','초음파','U-1001','F-2004');
+Insert Into 소환수 Values('A-003','도래곤','드래곤','불꽃발사','U-1004','F-2001');
+Insert Into 소환수 Values('A-004','싱어','상어','깨물기','U-1005','F-2005');
+Insert Into 소환수 Values('A-005','윈숭이','원숭이','껍질던지기','U-1003','F-2002');
+Insert Into 소환수 Values('A-006','냥코','고양이','할퀴기','U-1001',null);
+Insert Into 소환수 Values('A-007','배불뚝','바다코끼리','배치기','U-1006','F-2006');
+Insert Into 소환수 Values('A-008','해다리','해달','조개표창','U-1007',null);
+Insert Into 소환수 Values('A-009','고슴치','고슴도치','뿔찌르기','U-1007','F-2007');
+Insert Into 소환수 Values('A-010','팬다','판다','죽순휘두르기',null,'F-2005');
+
+/*실행결과*/
+Select *
+From 소환수;
