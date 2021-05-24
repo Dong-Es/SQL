@@ -246,3 +246,118 @@ Insert Into Map Values('P-010','시공간',null,null);
 
 /*실행결과*/
 Select *
+From Map;
+
+/*테이블 생성*/
+/*위치*/
+Create table 위치(
+맵번호 char(10) not null,
+몬스터번호 char(10) not null,
+Npc번호 char(10) not null,
+Primary Key(맵번호,몬스터번호,Npc번호),
+Foreign key(맵번호) references Map(MapID),
+Foreign key(몬스터번호) references 몬스터(몬스터ID),
+Foreign key(Npc번호) references npc(npcID)
+);
+
+/*데이터 입력*/
+Insert Into 위치 Values('P-001','M-010','N-006');
+Insert Into 위치 Values('P-002','M-009','N-004');
+Insert Into 위치 Values('P-003','M-001','N-003');
+Insert Into 위치 Values('P-004','M-004','N-002');
+Insert Into 위치 Values('P-005','M-008','N-001');
+Insert Into 위치 Values('P-006','M-003','N-008');
+Insert Into 위치 Values('P-007','M-005','N-009');
+Insert Into 위치 Values('P-008','M-002','N-005');
+Insert Into 위치 Values('P-009','M-007','N-007');
+Insert Into 위치 Values('P-010','M-006','N-010');
+
+/*실행결과*/
+Select *
+From 위치;
+
+/*테이블 생성*/
+/*이동*/
+Create table 이동(
+맵번호 char(10) not null,
+Npc번호 char(10) not null,
+유저번호 char(10),
+수레 char(10),
+동물 char(10),
+텔레포트 char(20),
+Primary Key(맵번호,Npc번호),
+Foreign key(유저번호) references 유저(유저ID),
+Foreign key(맵번호) references Map(MapID),
+Foreign key(Npc번호) references npc(npcID)
+);
+
+/*데이터입력*/
+Insert Into 이동 Values('P-001','N-006','U-1001','마차','낙타',null);
+Insert Into 이동 Values('P-002','N-004','U-1001','썰매','사냥개',null);
+Insert Into 이동 Values('P-003','N-003','U-1002','마차','말','텔레포트');
+Insert Into 이동 Values('P-004','N-002','U-1003','썰매','사냥개',null);
+Insert Into 이동 Values('P-005','N-001','U-1005','배','고래',null);
+Insert Into 이동 Values('P-006','N-008','U-1006','용암선박',null,null);
+Insert Into 이동 Values('P-007','N-009','U-1009','수송선','그란돈','텔레포트');
+Insert Into 이동 Values('P-008','N-005','U-1010','마차','말','텔레포트');
+Insert Into 이동 Values('P-009','N-007','U-1003','자전거','곰',null);
+Insert Into 이동 Values('P-010','N-010','U-1004',null,null,'텔레포트');
+
+/*실행결과*/
+Select *
+From 이동;
+
+/*테이블 생성*/
+/*퀘스트*/
+Create table 퀘스트(
+유저번호 char(10) not null,
+Npc번호 char(10) not null,
+아이템 char(20),
+경험치 int,
+Primary Key(유저번호,Npc번호),
+Foreign key(Npc번호) references npc(npcID),
+Foreign key(유저번호) references 유저(유저ID)
+);
+
+/*데이터 입력*/
+Insert Into 퀘스트 Values('U-1001','N-001','낚시대',500);
+Insert Into 퀘스트 Values('U-1001','N-002','아이젠',30);
+Insert Into 퀘스트 Values('U-1003','N-003','용사의반지',55);
+Insert Into 퀘스트 Values('U-1003','N-004','빨간귀고리',100);
+Insert Into 퀘스트 Values('U-1004','N-005','소환수알',500);
+Insert Into 퀘스트 Values('U-1005','N-006','모험가의 로브',350);
+Insert Into 퀘스트 Values('U-1005','N-007','모험가의 모자',400);
+Insert Into 퀘스트 Values('U-1006','N-008','기사의맹세',700);
+Insert Into 퀘스트 Values('U-1006','N-009','돌풍',1000);
+Insert Into 퀘스트 Values('U-1007','N-010','솔라리',1200);
+
+/*실행결과*/
+Select *
+From 퀘스트;
+
+/*테이블 생성*/
+/*교류*/
+Create table 교류(
+유저번호 char(10) not null,
+AI친구번호 char(10) not null,
+정보 char(20),
+Primary key(유저번호,AI친구번호),
+Foreign key(유저번호) references 유저(유저ID),
+Foreign key(AI친구번호) references AI친구(AI친구ID)
+);
+
+/*데이터입력*/
+Insert Into 교류 Values('U-1001','F-2001','몬스터정보');
+Insert Into 교류 Values('U-1001','F-2002','스토리정보');
+Insert Into 교류 Values('U-1002','F-2003','방어구정보');
+Insert Into 교류 Values('U-1002','F-2004','무기정보');
+Insert Into 교류 Values('U-1002','F-2005','스토리정보');
+Insert Into 교류 Values('U-1003','F-2001','보스정보');
+Insert Into 교류 Values('U-1003','F-2002','아이템정보');
+Insert Into 교류 Values('U-1004','F-2006','퀘스트정보');
+Insert Into 교류 Values('U-1006','F-2007','장신구정보');
+Insert Into 교류 Values('U-1007','F-2005','퀘스트정보');
+
+/*실행결과*/
+Select *
+From 교류;
