@@ -162,3 +162,87 @@ Insert Into 소환수 Values('A-010','팬다','판다','죽순휘두르기',null
 /*실행결과*/
 Select *
 From 소환수;
+
+/*테이블 생성*/
+/*몬스터*/
+Create table 몬스터 (
+몬스터ID char(10) not null,
+이름	char(20),
+레벨 int Check(레벨<201),
+경험치 int,
+체력 int,
+공격력 int,
+방어력 int,
+속성 char(10),
+Primary Key(몬스터ID)
+);
+
+/*데이터 입력*/
+Insert Into 몬스터 Values('M-001','돼징',7,12,30,5,7,'노말');
+Insert Into 몬스터 Values('M-002','하망',30,45,45,10,15,'물');
+Insert Into 몬스터 Values('M-003','눅대',50,90,584,74,31,'불꽃');
+Insert Into 몬스터 Values('M-004','퐈프리카',60,125,1700,105,56,'강철');
+Insert Into 몬스터 Values('M-005','멧돼징',82,145,1950,120,62,'노말');
+Insert Into 몬스터 Values('M-006','라프리카',93,170,2100,135,67,'에스퍼');
+Insert Into 몬스터 Values('M-007','메가메기',120,450,2789,755,70,'전기');
+Insert Into 몬스터 Values('M-008','울트라상어',140,540,3489,850,80,'물');
+Insert Into 몬스터 Values('M-009','울픙',160,750,4486,960,90,'독');
+Insert Into 몬스터 Values('M-010','불원숭이',180,840,4987,1050,99,'불');
+
+/*실행결과*/
+Select *
+From 몬스터;
+
+
+/*테이블 생성*/
+/*아이템*/
+Create table 아이템(
+아이템ID char(10) not null,
+아이템이름 char(20),
+공격력 int,
+방어력 int,
+잠재능력 char(4),
+Primary key(아이템ID)
+);
+
+/*데이터 입력*/
+Insert Into 아이템 Values('I-001','천갑옷',5,10,'유');
+Insert Into 아이템 Values('I-002','가죽장화',5,20,'유');
+Insert Into 아이템 Values('I-003','천망토',8,30,'무');
+Insert Into 아이템 Values('I-004','노가다장갑',15,20,'무');
+Insert Into 아이템 Values('I-005','면바지',5,30,'유');
+Insert Into 아이템 Values('I-006','불릿',100,0,'무');
+Insert Into 아이템 Values('I-007','건틀릿',95,30,'유');
+Insert Into 아이템 Values('I-008','대거',75,30,'유');
+Insert Into 아이템 Values('I-009','래피드',65,20,'유');
+Insert Into 아이템 Values('I-010','성경',85,50,'유');
+
+/*실행결과*/
+Select *
+From 아이템;
+
+
+/*테이블 생성*/
+/*Map*/
+Create table Map(
+MapID char(10) not null,
+Map이름 char(10),
+날씨 char(8),
+지형 char(8),
+Primary key (MapID)
+);
+
+/*데이터입력*/
+Insert Into Map Values('P-001','아리안트','더움','사막지대');
+Insert Into Map Values('P-002','엘로스','추움','빙하지대');
+Insert Into Map Values('P-003','헤네','온화','평야지대');
+Insert Into Map Values('P-004','여로','추움','설야지대');
+Insert Into Map Values('P-005','바닷가','태풍','심해');
+Insert Into Map Values('P-006','불지옥','뜨거움','용암대지');
+Insert Into Map Values('P-007','여로','거움','암석지대');
+Insert Into Map Values('P-008','브리튼','온화','성벽');
+Insert Into Map Values('P-009','코크타운','시원','콜라마을');
+Insert Into Map Values('P-010','시공간',null,null);
+
+/*실행결과*/
+Select *
