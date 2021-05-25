@@ -361,3 +361,88 @@ Insert Into 교류 Values('U-1007','F-2005','퀘스트정보');
 /*실행결과*/
 Select *
 From 교류;
+
+/*테이블 생성*/
+/*모험*/
+Create table 모험(
+유저번호 char(10) not null,
+AI친구번호 char(10) not null,
+퀘스트 char(20),
+레이드 char(20),
+스토리 char(10),
+Primary key(유저번호,AI친구번호),
+Foreign key(유저번호) references 유저(유저ID),
+Foreign key(AI친구번호) references AI친구(AI친구ID)
+);
+
+
+/*데이터입력*/
+Insert Into 모험 Values('U-1001','F-2002',null,null,'1장');
+Insert Into 모험 Values('U-1001','F-2003',null,'울트라상어','2장');
+Insert Into 모험 Values('U-1002','F-2002','동전찾기',null,null);
+Insert Into 모험 Values('U-1003','F-2004',null,'메가메기',null);
+Insert Into 모험 Values('U-1003','F-2005','심해탐방',null,'4장');
+Insert Into 모험 Values('U-1004','F-2006','과제돕기','퐈프리카','5장');
+Insert Into 모험 Values('U-1005','F-2007',null,'메가메기','3장');
+Insert Into 모험 Values('U-1006','F-2007','털모으기','울픙','4장');
+Insert Into 모험 Values('U-1007','F-2003','불모으기','불원숭이','5장');
+Insert Into 모험 Values('U-1007','F-2004','강력한이빨수집','울트라상어','7장');
+
+/*실행결과*/
+Select *
+From 모험;
+
+/*테이블 생성*/
+/*장착*/
+Create table 장착(
+캐릭터번호 char(10) not null,
+아이템번호 char(10) not null,
+아이템효과 char(20),
+Primary key(캐릭터번호,아이템번호),
+Foreign key(캐릭터번호) references 캐릭터(캐릭터ID),
+Foreign key(아이템번호) references 아이템(아이템ID)
+);
+
+/*데이터입력*/
+Insert Into 장착 Values('C-004','I-008','비즐라세트');
+Insert Into 장착 Values('C-004','I-005','비즐라세트');
+Insert Into 장착 Values('C-002','I-002','상급세트');
+Insert Into 장착 Values('C-002','I-004',null);
+Insert Into 장착 Values('C-003','I-010','법사세트');
+Insert Into 장착 Values('C-003','I-004',null);
+Insert Into 장착 Values('C-004','I-009','기사단세트');
+Insert Into 장착 Values('C-005','I-005','초보세트');
+Insert Into 장착 Values('C-007','I-006','해적왕세트');
+Insert Into 장착 Values('C-007','I-001','중급세트');
+Insert Into 장착 Values('C-008','I-009','기사단세트');
+
+/*실행결과*/
+Select *
+From 장착;
+
+/*테이블 생성*/
+/*습득*/
+Create table 습득(
+ 스킬번호 char(10) not null,
+ 캐릭터번호 char(10) not null ,
+ 효과 char(20),
+ Foreign key(스킬번호) references 스킬(스킬ID),
+ Foreign key(캐릭터번호) references 캐릭터(캐릭터ID)
+);
+
+/*데이터 입력*/
+Insert Into 습득 Values('S-101','C-001','기본공격강화')
+Insert Into 습득 Values('S-102','C-001','방어력증가')
+Insert Into 습득 Values('S-201','C-003',null)
+Insert Into 습득 Values('S-301','C-002','이동속도증가')
+Insert Into 습득 Values('S-401','C-004','공격력강화')
+Insert Into 습득 Values('S-501','C-005',null)
+Insert Into 습득 Values('S-601','C-006','체력회복')
+Insert Into 습득 Values('S-701','C-006','증상회복')
+Insert Into 습득 Values('S-801','C-007','총알강화')
+Insert Into 습득 Values('S-901','C-008','변신')
+Insert Into 습득 Values('S-902','C-008','공격속도증가')
+
+/*실행결과*/
+Select *
+From 습득;
