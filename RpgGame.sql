@@ -446,3 +446,33 @@ Insert Into 습득 Values('S-902','C-008','공격속도증가')
 /*실행결과*/
 Select *
 From 습득;
+
+/*테이블 생성*/
+/*전쟁*/
+Create table 전쟁(
+유저번호 char(10) not null,
+몬스터번호 char(10) not null,
+소환수번호 char(10) not null,
+보상골드 int,
+주문서 char(20),
+Primary Key(유저번호,몬스터번호,소환수번호),
+Foreign key(유저번호) references 유저(유저ID),
+Foreign key(몬스터번호) references 몬스터(몬스터ID),
+Foreign key(소환수번호) references 소환수(소환수ID)
+);
+
+/*데이터입력*/
+Insert Into 전쟁 Values('U-1001','M-010','A-004',1000000,'스탯강화주문서');
+Insert Into 전쟁 Values('U-1002','M-001','A-002',null,'신발강화주문서');
+Insert Into 전쟁 Values('U-1003','M-002','A-001',100,'공격력강화주문서');
+Insert Into 전쟁 Values('U-1004','M-003','A-005',1000,null);
+Insert Into 전쟁 Values('U-1004','M-004','A-003',10000,'장신구강화주문서');
+Insert Into 전쟁 Values('U-1005','M-005','A-006',120000,'방어력강화주문서');
+Insert Into 전쟁 Values('U-1006','M-006','A-008',170000,'더위강화주문서');
+Insert Into 전쟁 Values('U-1006','M-008','A-010',190000,'수압강화주문서');
+Insert Into 전쟁 Values('U-1007','M-007','A-009',15000,'스킬강화주문서');
+Insert Into 전쟁 Values('U-1007','M-009','A-007',110000,'추위강화주문서');
+
+/*실행결과*/
+Select*
+From 전쟁;
