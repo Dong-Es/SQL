@@ -476,3 +476,247 @@ Insert Into 전쟁 Values('U-1007','M-009','A-007',110000,'추위강화주문서
 /*실행결과*/
 Select*
 From 전쟁;
+
+/*질의*/
+/*1. 회원들의 이름을 가나다 순으로 나열하시오.*/
+
+Select 회원이름
+From  회원
+Order by 회원이름 Asc;
+
+/*질의*/
+/*2. 등록된 회원의 수는 모두 몇명인가요?*/
+
+Select COUNT(*) As '회원의 수'
+From 회원;
+
+/*질의*/
+/*3. 유저 동이의 회원정보를 검색하시오.*/
+
+select *
+From 회원
+Where 회원이름='임동균';
+
+/*질의*/
+/*4. 캐릭터에 어떤 직업이 있는지 내림차순으로 검색하시오.*/
+
+Select Distinct 직업
+From 캐릭터
+Order by 직업 Desc;
+
+/*질의*/
+/*5. 울트라상어의 레벨,경험치,공격력,방어력을 검색하시오.*/
+
+Select 레벨, 경험치, 공격력, 방어력
+From 몬스터
+Where 이름='울트라상어';
+
+/*질의*/
+/*6. 비즐라가 사용할 수 있는 스킬의 이름을 검색하시오.*/
+
+Select 이름
+From 습득, 캐릭터, 스킬
+Where 스킬.스킬ID=습득.스킬번호 and 습득.캐릭터번호=캐릭터.캐릭터ID and 직업='전사';
+
+/*질의*/
+/*7. 이건희 회원의 유저닉네임을 검색하시오.*/
+
+Select 유저닉네임
+From 회원, 유저
+Where 회원.회원ID=유저.회원번호 and 회원이름 = '이건희';
+
+/*질의*/
+/*8.비즐라를 선택한 유저의 유저닉네임을 검색하세요.*/
+
+Select 유저닉네임
+From 유저
+Where 유저ID   =       (
+                       Select 유저번호
+                       From 캐릭터
+                       Where 캐릭터이름 = '비즐라'
+                       );
+        
+/*질의*/                       
+--9.비즐라세트 효과를 받고 있는 유저ID와 유저닉네임을 검색하시오.
+
+Select 유저ID, 유저닉네임
+From 유저
+Where 유저ID  =       (
+                      Select 유저번호
+                      From 캐릭터
+                      Where 캐릭터ID   in(
+                                            Select 캐릭터번호
+                                            From 장착
+                                            Where 아이템효과='비즐라세트'
+                                           )
+                       );
+
+/*질의*/                  
+--10. 스탯강화주문서를 가지고 있는 몬스터의 이름을 검색하시오.
+ 
+ Select 이름
+ From 몬스터
+ Where 몬스터ID= (
+                 Select 몬스터번호
+                 From 전쟁
+                 Where 주문서='스탯강화주문서'
+                 );
+ 
+/*질의*/
+--11. 전쟁에서 승리시 얻을 수 있는 이름, 주문서, 보상골드를 검색하시오.
+
+Select 이름,주문서,보상골드
+From 몬스터, 전쟁
+Where 몬스터.몬스터ID=전쟁.몬스터번호;
+
+--11-2  전쟁에서 승리를 하여도 주문서를 못얻는 몬스터번호를 검색하시오
+
+Select 몬스터번호
+From 몬스터, 전쟁
+Where 몬스터.몬스터ID=전쟁.몬스터번호 and 주문서 is null;
+
+/*질의*/
+--12. Npc별빛이 위치한 지역의 지형과 날씨, Map이름을 검색하시오.
+
+Select 지형,날씨,Map이름
+From npc,Map,위치
+Where npc.NPCID=위치.Npc번호 and 위치.맵번호 =MapID and 이름='별빛';
+
+/*질의*/
+--13. 스토리 4장을 모험한 유저의 유저닉네임과 AI친구의 AI친구닉네임을 검색하시오.
+
+Select 유저닉네임,AI친구닉네임
+From 유저,AI친구,모험
+Where 유저.유저ID = 모험.유저번호 and AI친구.AI친구ID = 모험.AI친구번호 and 스토리='4장';
+
+/*질의*/
+--14. 아이템 효과를 받지 못하는 유저의 유저닉네임을 검색하시오.
+
+Select 유저닉네임
+From 유저
+Where 유저ID  in      (
+                      Select 유저번호
+                      From 캐릭터
+                      Where 캐릭터ID in(
+                                      Select 캐릭터번호
+                                      From 장착
+                                      Where 아이템효과 is null
+                                     )
+                        );
+
+/*질의*/
+--15. 보상골드가 500000이 넘는 전쟁에 참여한 유저의 회원이름를 검색하시오.
+
+Select 회원이름
+From 회원
+Where 회원ID in(
+               Select 회원번호
+               From 유저
+               Where 유저ID  in(
+                               Select 유저번호
+                               From 전쟁
+                               Where 보상골드 > 500000
+                               )
+               );
+
+/*질의*/
+--16. 임동균 회원이 플레이하고 있는 캐릭터의 캐릭터ID, 캐릭터이름, 직업을 검색하시오.
+
+Select 캐릭터ID,캐릭터이름,직업
+From 캐릭터
+Where 유저번호 = (
+                  Select 유저ID
+                  From 유저
+                  Where 회원번호  = (
+                                    Select 회원ID
+                                    From 회원
+                                    Where  회원이름='임동균'
+                                    ) 
+                  );        
+
+/*질의*/
+--17. 썰매와 사냥개를 타고 이동할 수 있는 지역의 MAP이름과 지형과 날씨를 검색하시오.
+
+Select map이름,지형,날씨
+From map
+Where MapID in(
+              Select 맵번호
+              From 이동
+              Where 수레='썰매' and 동물='사냥개'
+            );
+
+/*질의*/            
+--18. 전쟁에서 소환수와 함께 퐈프리카를 잡은 유저의 이름과 레벨을 검색하시오.
+
+Select 유저닉네임, 레벨
+From 유저
+Where 유저ID  = ( 
+                 Select 뽑은유저
+                 From  소환수
+                 Where  소환수ID  =(
+                                   Select 소환수번호
+                                   From 전쟁
+                                   Where 몬스터번호  = (
+                                                       Select 몬스터ID
+                                                       From 몬스터
+                                                       Where 이름='퐈프리카'
+                                                      )
+                             )
+                );     
+         
+/*질의*/              
+--19. 본인인증을 위해 E-mail 애트리뷰트을 추가하고 데이터 값을 입력 시키시오.
+--19-1)애트리뷰트추가
+
+Alter table 회원 add Email char(25);
+
+--19-2)임동균,변진원 최선규회원 이메일값 추가
+
+Update 회원
+Set Email='bdkaa@naver.com'
+Where 회원이름='변진원';
+Update 회원
+Set Email='abrerop@naver.com'
+Where 회원이름='임동균';
+Update 회원
+Set Email='csr2457@naver.com'
+Where 회원이름='최선규';
+
+--확인용
+Select*
+From 회원;
+
+/*질의*/
+--20. 서슬기 외 2명이 회원가입을 하였습니다. 데이터를 추가 시키시오.
+
+Insert Into 회원 Values('Q-0015','서슬기',950516,'010-4596-6698','여','강원도','춘천시','퇴계동','qufqlf164@gmail.com');
+Insert Into 회원 Values('Q-0016','임혜지',941125,'010-8496-4189','여','강원도','춘천시','퇴계동','ekfqlc384@gmail.com');
+Insert Into 회원 Values('Q-0017','김안나',940712,'010-8945-8913','여','서울시','동작구','상도동','akakill9806@gmail.com');
+
+--확인용
+Select*
+From 회원;
+
+
+--뷰 문제 1번
+Create view 전쟁부자
+As select 유저닉네임,보상골드
+   from 유저,전쟁
+   where 유저.유저ID=전쟁.유저번호;
+  
+Select*
+From 전쟁부자
+Where 보상골드 > 100000;  
+
+
+--뷰 문제 2번
+Create view npc위치
+As select 이름, 지형, 날씨
+   from npc,Map,위치
+   where npc.NPCID=위치.Npc번호 and 위치.맵번호 = map.MapID;
+   
+--npc이름검색하여 위치 찾기
+Select *
+From npc위치
+Where 이름 ='별빛';
+
